@@ -1,0 +1,20 @@
+<div class="card mb-3" *ngFor="let user of users">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="/assets/img/{{ user.imageUrl }}" class="img-fluid rounded-start" alt="">
+        </div>
+        <div class="col-md-9">
+            <div class="card-body">
+                <h2 class="card-title">{{ user.title }}</h2>
+                <p class="card-text">{{ user.description }}</p>
+                <button class="btn btn-sm btn-outline-primary">Details</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <app-user *ngFor="let item of users"></app-user> -->
+
+<!-- <ul>
+    <li *ngFor="let item of users">{{ item }}</li>
+</ul> -->

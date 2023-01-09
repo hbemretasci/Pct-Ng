@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pct-ng';
+  private title = 'Problem Çözme Teknikleri';
+  
+  getTitle() {
+    return this.title;
+  }
+
 }
