@@ -1,20 +1,55 @@
-<div class="card mb-3" *ngFor="let user of users">
-    <div class="row">
-        <div class="col-md-3">
-            <img src="/assets/img/{{ user.imageUrl }}" class="img-fluid rounded-start" alt="">
+<div *ngIf="error then errorTemplate else dataTemplate">
+    if placeholder
+</div>
+
+<ng-template #dataTemplate> 
+    <div *ngIf="users.length > 0 else noUserTemplate">
+
+        <h1>{{ title }}</h1>
+    
+        <div class="alert alert-warning">
+            {{ users.length }} user(s) found.
         </div>
-        <div class="col-md-9">
-            <div class="card-body">
-                <h2 class="card-title">{{ user.title }}</h2>
-                <p class="card-text">{{ user.description }}</p>
-                <button class="btn btn-sm btn-outline-primary">Details</button>
+    
+        <div class="mb-3">
+            <input type="text" class="form-control" [(ngModel)]="filterText" placeholder="Search...">
+            <small class="text-muted" *ngIf="filterText">Searched User: {{ filterText }}</small>
+        </div>
+    
+        <ng-template [ngTemplateOutlet]="UserTemplate" [ngTemplateOutletContext]="{ usersData: users }"></ng-template>
+    </div>
+</ng-template>
+
+<ng-template #errorTemplate> 
+    <div class="alert alert-danger">
+        {{ error.message }}
+    </div>
+</ng-template>
+
+<ng-template #noUserTemplate> 
+    <div class="alert alert-warning">
+        User Not Found!
+    </div>
+</ng-template>
+
+<ng-template #UserTemplate let-users="usersData">
+    <div class="card mb-3" *ngFor="let user of users| userFilter: filterText">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="/assets/img/1.jpeg" class="img-fluid rounded-start" alt="">
+            </div>
+            <div class="col-md-9">
+                <div class="card-body">
+                    <h2 class="card-title">{{ user.name }}</h2>
+                    <p class="card-text">{{ user.role }}</p>
+                    <p class="card-text">{{ user.title | summary: 40 }}</p>
+                    <p class="card-text">{{ user.createdAt | date: 'fullDate' }}</p>
+                    <div>
+                       <button class="btn btn-sm btn-outline-primary">Details</button>
+                       <button (click)="addToList($event, user)" class="btn btn-sm btn-primary ms-1">Add</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<!-- <app-user *ngFor="let item of users"></app-user> -->
-
-<!-- <ul>
-    <li *ngFor="let item of users">{{ item }}</li>
-</ul> -->
+</ng-template>

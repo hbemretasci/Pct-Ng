@@ -1,6 +1,17 @@
 export interface User {
-    id: number,
+    _id: string,
+    name: string,
+    email: string,
+    role: string,
+    organization: string,
+    organizationName: string,
     title: string,
-    description: string,
-    imageUrl: string
+    department: string,
+    disabled: boolean,
+    createdAt: Date
+}
+
+export interface UsersResponse {
+    success: boolean,
+    data: User[]
 }
