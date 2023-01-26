@@ -15,3 +15,8 @@ export interface UsersResponse {
     success: boolean,
     data: User[]
 }
+
+export interface UserResponse {
+    success: boolean,
+    data: User
+}

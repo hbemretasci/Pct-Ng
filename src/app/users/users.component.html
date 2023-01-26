@@ -1,6 +1,20 @@
-<div *ngIf="error then errorTemplate else dataTemplate">
-    if placeholder
+<div *ngIf="loading else notLoadingTemplate">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
 </div>
+
+<ng-template #notLoadingTemplate> 
+    <div *ngIf="error then errorTemplate else dataTemplate">
+        if placeholder
+    </div>
+</ng-template>
+
+<ng-template #errorTemplate> 
+    <div class="alert alert-danger">
+        {{ error.message }}
+    </div>
+</ng-template>
 
 <ng-template #dataTemplate> 
     <div *ngIf="users.length > 0 else noUserTemplate">
@@ -16,13 +30,7 @@
             <small class="text-muted" *ngIf="filterText">Searched User: {{ filterText }}</small>
         </div>
     
-        <ng-template [ngTemplateOutlet]="UserTemplate" [ngTemplateOutletContext]="{ usersData: users }"></ng-template>
-    </div>
-</ng-template>
-
-<ng-template #errorTemplate> 
-    <div class="alert alert-danger">
-        {{ error.message }}
+        <ng-template [ngTemplateOutlet]="userTemplate" [ngTemplateOutletContext]="{ usersData: users }"></ng-template>
     </div>
 </ng-template>
 
@@ -32,8 +40,8 @@
     </div>
 </ng-template>
 
-<ng-template #UserTemplate let-users="usersData">
-    <div class="card mb-3" *ngFor="let user of users| userFilter: filterText">
+<ng-template #userTemplate let-users="usersData">
+    <div class="card mb-3" *ngFor="let user of users | userFilter: filterText">
         <div class="row">
             <div class="col-md-3">
                 <img src="/assets/img/1.jpeg" class="img-fluid rounded-start" alt="">
@@ -45,7 +53,7 @@
                     <p class="card-text">{{ user.title | summary: 40 }}</p>
                     <p class="card-text">{{ user.createdAt | date: 'fullDate' }}</p>
                     <div>
-                       <button class="btn btn-sm btn-outline-primary">Details</button>
+                       <a routerLink="/user/{{ user._id }}" class="btn btn-sm btn-outline-primary">Details</a>
                        <button (click)="addToList($event, user)" class="btn btn-sm btn-primary ms-1">Add</button>
                     </div>
                 </div>

@@ -14,8 +14,9 @@ export class UsersComponent implements OnInit {
   title: String = "User List";
   filterText: string = "";
 
-  users: User[] = [];
-  error: any = null;
+  loading: boolean = true;
+  users: User[];
+  error: any;
   
   constructor(
     private alertify: AlertifyService,
@@ -26,8 +27,14 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.userService.getUsers(params["roleName"]).subscribe({
-        next: (v) => this.users = v.data,
-        error: (e) => this.error = e
+        next: (v) => {
+          this.users = v.data;
+          this.loading = false;  
+        }, 
+        error: (e) => {
+          this.error = e
+          this.loading = false;
+        }
       });
     });
   }

@@ -7,7 +7,7 @@
     </a>
 
     <a 
-        routerLink="users/role/{{ role }}"
+        routerLink="users/{{ role }}"
         *ngFor="let role of roles"
         [class.active]="!displayAllRoles && selectedRole == role"
         (click)="selectRole(role)"
