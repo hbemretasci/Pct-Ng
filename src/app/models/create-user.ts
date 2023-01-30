@@ -1,12 +1,11 @@
-export interface User {
-    _id: string,
+export interface CreateUser {
     name: string,
     email: string,
     role: string,
+    password: string,
     organization: string,
     organizationName: string,
     title: string,
     department: string,
-    disabled: boolean,
-    createdAt: Date
+    disabled: boolean
 }

@@ -1,8 +1,10 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { UserResponse, UsersResponse } from "../models/user";
+import { CreateUser } from "../models/create-user";
+import { UserResponse } from "../models/user-response";
+import { UsersResponse } from "../models/users-response";
 
 @Injectable()
 export class UserService {
@@ -13,7 +15,7 @@ export class UserService {
 
     getUsers(categoryName: string): Observable<UsersResponse> {
         let newUrl = this.url;
-        if(categoryName) newUrl += '/' + categoryName.toLowerCase();
+        if(categoryName) newUrl += '/' + categoryName;
 
         return this.httpClient.get<UsersResponse>(newUrl)
         .pipe(catchError(this.handleError))
@@ -21,6 +23,18 @@ export class UserService {
 
     getUserById(userId: string): Observable<UserResponse> {
         return this.httpClient.get<UserResponse>(this.url + '/user/' + userId)
+        .pipe(catchError(this.handleError))
+    }
+
+    registerUser(user: CreateUser): Observable<UserResponse> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer: access_token'
+            })
+        }
+
+        return this.httpClient.post<UserResponse>(this.url + '/register', user, httpOptions)
         .pipe(catchError(this.handleError))
     }
 

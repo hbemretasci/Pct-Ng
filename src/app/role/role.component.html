@@ -1,13 +1,13 @@
 <div class="list-group">
     <a
-        routerLink="users"
+        routerLink="admin"
         (click)="selectRole()"
         [class.active]="displayAllRoles"
         class="list-group-item list-group-item-action">All Roles
     </a>
 
     <a 
-        routerLink="users/{{ role }}"
+        routerLink="admin/{{ role }}"
         *ngFor="let role of roles"
         [class.active]="!displayAllRoles && selectedRole == role"
         (click)="selectRole(role)"

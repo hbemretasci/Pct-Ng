@@ -53,7 +53,7 @@
                     <p class="card-text">{{ user.title | summary: 40 }}</p>
                     <p class="card-text">{{ user.createdAt | date: 'fullDate' }}</p>
                     <div>
-                       <a routerLink="/user/{{ user._id }}" class="btn btn-sm btn-outline-primary">Details</a>
+                       <a routerLink="/admin/user/{{ user._id }}" class="btn btn-sm btn-outline-primary">Details</a>
                        <button (click)="addToList($event, user)" class="btn btn-sm btn-primary ms-1">Add</button>
                     </div>
                 </div>
