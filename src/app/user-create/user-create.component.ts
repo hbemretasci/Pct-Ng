@@ -3,15 +3,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CreateUser } from '../models/create-user';
 import { User } from '../models/user';
-import { UserOrganizationRepository } from '../models/user-organization.repository';
-import { UserRoleRepository } from '../models/user-role.repository';
-import { UserService } from '../services/user.service';
+import { UserOrganizationRepository } from '../repository/user-organization.repository';
+import { UserRoleRepository } from '../repository/user-role.repository';
+import { AdminService } from '../services/admin.service';
 
 @Component({
   selector: 'user-create',
   templateUrl: './user-create.component.html',
-  styleUrls: ['./user-create.component.css', '../forms.css'],
-  providers: [UserService]
+  styleUrls: ['./user-create.component.css'],
+  providers: [AdminService]
 })
 export class UserCreateComponent {
   title: String = "Create User";
@@ -53,7 +53,7 @@ export class UserCreateComponent {
   }
 
   constructor(
-    private userService: UserService,
+    private adminService: AdminService,
     private router: Router
   ) {
     this.userOrganizationRepository = new UserOrganizationRepository();
@@ -78,7 +78,7 @@ export class UserCreateComponent {
         disabled: false  
     }
 
-    this.userService.registerUser(createUser).subscribe({
+    this.adminService.registerUser(createUser).subscribe({
       next: (v) => {
         this.user = v.data;
         this.loading = false;  

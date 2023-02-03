@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../models/user';
 import { AlertifyService } from '../services/alertify.service';
-import { UserService } from '../services/user.service';
+import { AdminService } from '../services/admin.service';
 
 @Component({
   selector: 'users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
-  providers: [UserService]
+  providers: [AdminService]
 })
 export class UsersComponent implements OnInit {
   title: String = "User List";
@@ -20,13 +20,13 @@ export class UsersComponent implements OnInit {
   
   constructor(
     private alertify: AlertifyService,
-    private userService: UserService,
+    private adminService: AdminService,
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.userService.getUsers(params["roleName"]).subscribe({
+      this.adminService.getUsers(params["roleName"]).subscribe({
         next: (v) => {
           this.users = v.data;
           this.loading = false;  

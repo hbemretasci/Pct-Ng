@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserRoleRepository } from '../models/user-role.repository';
+import { UserRoleRepository } from '../repository/user-role.repository';
 
 @Component({
   selector: 'role',
