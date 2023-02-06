@@ -1,25 +1,31 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <div class="container">
-        <a href="/" class="navbar-brand">Problem Çözme Teknikleri</a>
+        <a class="navbar-brand">Problem Çözme Teknikleri</a>
+
         <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-                <a href="" class="nav-link active">Home</a>
-            </li>
-            <li class="nav-item">
+
+            <li *ngIf="isAuthUser && isAdminUser" class="nav-item">
                 <a routerLink="admin" class="nav-link">Users</a>
             </li>
-            <li *ngIf="isAuthUser" class="nav-item">
+
+            <li *ngIf="isAuthUser && isAdminUser" class="nav-item">
                 <a routerLink="/admin/register" class="nav-link">Create User</a>
             </li>
+            
         </ul>
 
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ms-auto">
+
             <li *ngIf="!isAuthUser" class="nav-item">
                 <a routerLink="/auth/login" class="nav-link">Login</a>
             </li>
+
             <li *ngIf="isAuthUser" class="nav-item">
                 <a routerLink="" (click)="logout()" class="nav-link">Logout</a>
+
             </li>
+
         </ul>
+        
     </div>
 </nav>

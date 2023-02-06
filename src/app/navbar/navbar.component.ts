@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'navbar',
@@ -8,7 +8,6 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
   isAuthUser: boolean = false;
   isAdminUser: boolean = false;
 
@@ -20,6 +19,11 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user.subscribe(user => {
       this.isAuthUser = !!user;
+      if((this.isAuthUser) && (user.role == "Admin")) {
+        this.isAdminUser = true
+      } else {
+        this.isAdminUser = false;
+      }
     })
   }
 
