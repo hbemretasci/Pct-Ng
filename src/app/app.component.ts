@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './auth/auth.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { AutoLoginUseCase } from './auth/domain/use-case/auto-login.usecase';
 
 @Component({
   selector: 'app',
@@ -8,10 +8,10 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  private _autoLoginUseCase = inject(AutoLoginUseCase);
 
   ngOnInit(): void {
-    this.authService.autoLogin();
+    this._autoLoginUseCase.execute();
   }
   
 }

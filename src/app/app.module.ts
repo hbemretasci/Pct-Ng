@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './core.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [

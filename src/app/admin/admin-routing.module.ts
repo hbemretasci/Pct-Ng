@@ -1,10 +1,10 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AuthGuard } from "../guards/auth.guard";
-import { AdminComponent } from "./admin-home/admin-home.component";
-import { UserCreateComponent } from "./user-create/user-create.component";
-import { UserDetailsComponent } from "./user-details/user-details.component";
-import { UsersComponent } from "./users/users.component";
+import { AuthGuard } from "../auth/auth.guard";
+import { AdminComponent } from "./presentation/admin-home/admin-home.component";
+import { UserCreateComponent } from "./presentation/user-create/user-create.component";
+import { UserDetailsComponent } from "./presentation/user-details/user-details.component";
+import { UsersComponent } from "./presentation/users/users.component";
 
 const routes: Routes = [
     {

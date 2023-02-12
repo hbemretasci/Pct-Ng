@@ -13,7 +13,8 @@ import { LoadingComponent } from "./loading/loading.component";
     ],
     exports: [
         AlertComponent,
-        LoadingComponent
+        LoadingComponent,
+        CommonModule
     ]
 })
 export class SharedModule {
