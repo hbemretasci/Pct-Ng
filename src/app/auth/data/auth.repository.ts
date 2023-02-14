@@ -1,25 +1,28 @@
 import { HttpClient, HttpEvent, HttpHandler, HttpHeaders, HttpRequest } from "@angular/common/http";
-import { inject } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { BehaviorSubject, exhaustMap, map, Observable, take, tap } from "rxjs";
-import { LoggedUser } from "../../domain/model/logged-user";
-import { LoginModel } from "../../domain/model/login.model";
-import { AuthRepository } from "../../domain/repository/auth.repository";
-import { StoraggedUserEntity } from "../local/storagged-user.entity";
-import { LoginImplementationMapper } from "../mapper/login-imp.mapper";
-import { LoginResponseDto } from "../remote/login-response.dto";
+import { LoggedUser } from "../domain/logged-user";
+import { LoginModel } from "../domain/login.model";
+import { StoraggedUserEntity } from "./storagged-user.entity";
+import { AuthMapper } from "./auth.mapper";
+import { LoginResponseDto } from "./login-response.dto";
 
-export class AuthImpRepository extends AuthRepository {
-    private _httpClient = inject(HttpClient);
-    public override user = new BehaviorSubject<LoggedUser>(null);
+@Injectable({
+    providedIn: 'root'
+})
+export class AuthRepository {
+    user = new BehaviorSubject<LoggedUser>(null);
 
     url = "http://localhost:5000/api/auth";
     
-    loginMapper = new LoginImplementationMapper();
+    mapper = new AuthMapper();
+
+    private httpClient = inject(HttpClient)
 
     loginUser(params: { email: string; password: string; }): Observable<LoginModel> {
-        return this._httpClient.post<LoginResponseDto>(this.url + '/login', params)
+        return this.httpClient.post<LoginResponseDto>(this.url + '/login', params)
         .pipe( 
-            map(r => this.loginMapper.mapTo(r))
+            map(r => this.mapper.loginToModel(r))
         )
     }
 

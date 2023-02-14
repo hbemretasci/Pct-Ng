@@ -1,12 +1,14 @@
-import { inject } from "@angular/core";
-import { LoggedUser } from "../model/logged-user";
-import { AuthRepository } from "../repository/auth.repository";
+import { inject, Injectable } from "@angular/core";
+import { AuthRepository } from "../../data/auth.repository";
+import { LoggedUser } from "../logged-user";
 
+@Injectable()
 export class AutoLoginUseCase {
-    private _authRepository = inject(AuthRepository);
+
+    private authRepository = inject(AuthRepository);
 
     execute() {
-        const storaggedUser = this._authRepository.getLocalStorage("user");
+        const storaggedUser = this.authRepository.getLocalStorage("user");
         if(!storaggedUser) return;
 
         const loggedUser = new LoggedUser(
@@ -16,6 +18,7 @@ export class AutoLoginUseCase {
             storaggedUser.token, 
             new Date(parseInt(storaggedUser.tokenExpirationDate))
         );
-        if(loggedUser.token) this._authRepository.user.next(loggedUser);
+        
+        if(loggedUser.token) this.authRepository.user.next(loggedUser);
     }
 }

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertifyService } from '../../../shared/alertify.service';
-import { UserModel } from '../../domain/model/user.model';
+import { UserModel } from '../../domain/user.model';
 import { UserRegisterUseCase } from '../../domain/use-case/user-register.usecase';
 
 @Component({

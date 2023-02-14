@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserModel } from '../../domain/model/user.model';
+import { UserModel } from '../../domain/user.model';
 import { GetUserByIdUseCase } from '../../domain/use-case/get-user-byid.usecase';
 
 @Component({

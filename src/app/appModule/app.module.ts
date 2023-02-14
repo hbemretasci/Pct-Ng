@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppComponent } from './presentation/app/app.component';
+import { NavbarComponent } from './presentation/navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthModule } from './auth/auth.module';
-import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './core/core.module';
+import { SharedModule } from '../shared/shared.module';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -17,10 +14,8 @@ import { CoreModule } from './core/core.module';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule,
+    HttpClientModule,
     SharedModule,
     CoreModule
   ],

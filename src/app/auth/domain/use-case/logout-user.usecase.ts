@@ -1,11 +1,15 @@
-import { inject } from "@angular/core";
-import { AuthRepository } from "../repository/auth.repository";
+import { inject, Injectable } from "@angular/core";
+import { AuthRepository } from "../../data/auth.repository";
 
-export class LoginOutUseCase {
-    private _authRepository = inject(AuthRepository);
+@Injectable({
+    providedIn: 'root'
+})
+export class LogoutUserUseCase {
+
+    private authRepository = inject(AuthRepository);
 
     execute() {
-        this._authRepository.user.next(null);
-        this._authRepository.removeLocalStorage("user");
+        this.authRepository.user.next(null);
+        this.authRepository.removeLocalStorage("user");
     }
 }

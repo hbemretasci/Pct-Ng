@@ -1,15 +1,19 @@
-import { inject } from "@angular/core";
 import { Observable } from "rxjs";
 import { UseCase } from "src/app/shared/utils/use-case";
-import { UserModel } from "../model/user.model";
-import { AdminRepository } from "../repository/admin.repository";
+import { UserModel } from "../user.model";
+import { AdminRepository } from "../../data/admin.repository";
+import { inject, Injectable } from "@angular/core";
 
+@Injectable({
+    providedIn: 'root'
+})
 export class GetUsersByCategoryUseCase implements UseCase<{ categoryName: string }, UserModel[]> {
-    private _adminRepository = inject(AdminRepository);
+    
+    private adminRepository = inject(AdminRepository)
 
     execute(
         params: { categoryName: string },
     ): Observable<UserModel[]> {
-        return this._adminRepository.getUsersByCategory(params);
+        return this.adminRepository.getUsersByCategory(params);
     }
 }

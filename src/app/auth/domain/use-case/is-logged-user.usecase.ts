@@ -1,11 +1,15 @@
-import { inject } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { AuthRepository } from "../repository/auth.repository";
+import { AuthRepository } from "../../data/auth.repository";
 
+@Injectable({
+    providedIn: 'root'
+})
 export class IsLoggedUserUseCase {
-    private _authRepository = inject(AuthRepository);
+    
+    private authRepository = inject(AuthRepository);
 
     execute(): Observable<boolean> {
-        return this._authRepository.isLoggedUser();
+        return this.authRepository.isLoggedUser();
     }
 }

@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-// import { GetUserUseCase } from '../auth/domain/use-case/get-user.usecase';
-import { IsLoggedUserAdminUseCase } from '../auth/domain/use-case/is-logged-user-admin.usecase';
-import { IsLoggedUserUseCase } from '../auth/domain/use-case/is-logged-user.usecase';
-import { LoginOutUseCase } from '../auth/domain/use-case/logout-user.usecase';
+import { GetUserUseCase } from '../../../auth/domain/use-case/get-user.usecase';
+import { IsLoggedUserAdminUseCase } from '../../../auth/domain/use-case/is-logged-user-admin.usecase';
+import { IsLoggedUserUseCase } from '../../../auth/domain/use-case/is-logged-user.usecase';
+import { LogoutUserUseCase } from '../../../auth/domain/use-case/logout-user.usecase';
 
 @Component({
   selector: 'navbar',
@@ -16,14 +16,14 @@ export class NavbarComponent implements OnInit {
   isAdminUser: boolean = false;
   error: any;
 
-  private _isLoggedUserAdminUseCase = inject(IsLoggedUserAdminUseCase);
-  private _isLoggedUserUseCase = inject(IsLoggedUserUseCase);
-  private _loginOutUseCase = inject(LoginOutUseCase);
-  // private _getUserUseCase = inject(GetUserUseCase);
-  private _router = inject(Router);
+  private isLoggedUserAdminUseCase = inject(IsLoggedUserAdminUseCase);
+  private isLoggedUserUseCase = inject(IsLoggedUserUseCase);
+  private logouUserUseCase = inject(LogoutUserUseCase);
+  //private getUserUseCase = inject(GetUserUseCase);
+  private router = inject(Router);
 
   ngOnInit(): void {
-    this._isLoggedUserUseCase.execute().subscribe({
+    this.isLoggedUserUseCase.execute().subscribe({
       next: (v) => {
         this.isAuthUser = v
       }, 
@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
       }
     });
 
-    this._isLoggedUserAdminUseCase.execute().subscribe({
+    this.isLoggedUserAdminUseCase.execute().subscribe({
       next: (v) => {
         this.isAdminUser = v
         this.loading = false;  
@@ -56,8 +56,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this._loginOutUseCase.execute();
-    this._router.navigate(['/auth/login']);
+    this.logouUserUseCase.execute();
+    this.router.navigate(['/auth/login']);
   }
 
 }

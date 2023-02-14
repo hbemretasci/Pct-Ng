@@ -1,12 +1,16 @@
-import { inject } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { LoggedUser } from "../model/logged-user";
-import { AuthRepository } from "../repository/auth.repository";
+import { LoggedUser } from "../logged-user";
+import { AuthRepository } from "../../data/auth.repository";
+import { inject, Injectable } from "@angular/core";
 
+@Injectable({
+    providedIn: 'root'
+})
 export class GetUserUseCase {
-    private _authRepository = inject(AuthRepository);
+
+    private authRepository = inject(AuthRepository);
 
     execute(): BehaviorSubject<LoggedUser> {
-        return this._authRepository.getUser();
+        return this.authRepository.getUser();
     }
 }

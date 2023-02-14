@@ -1,12 +1,16 @@
 import { HttpEvent, HttpHandler, HttpRequest } from "@angular/common/http";
-import { inject } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { AuthRepository } from "../repository/auth.repository";
+import { AuthRepository } from "../../data/auth.repository";
 
+@Injectable({
+    providedIn: 'root'
+})
 export class UpdateRequestUseCase {
-    private _authRepository = inject(AuthRepository);
+
+    private authRepository = inject(AuthRepository);
 
     execute(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return this._authRepository.addTokenToRequest(req, next);
+        return this.authRepository.addTokenToRequest(req, next);
     }
 }

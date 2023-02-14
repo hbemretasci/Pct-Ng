@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from '../../../shared/alertify.service';
-import { UserModel } from '../../domain/model/user.model';
+import { UserModel } from '../../domain/user.model';
 import { GetUsersByCategoryUseCase } from '../../domain/use-case/get-users-bycategory.usecase';
 
 @Component({
