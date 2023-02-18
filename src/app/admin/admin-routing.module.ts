@@ -1,24 +1,25 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AuthGuard } from "../auth/auth.guard";
-import { AdminComponent } from "./presentation/admin-home/admin-home.component";
-import { UserCreateComponent } from "./presentation/user-create/user-create.component";
-import { UserDetailsComponent } from "./presentation/user-details/user-details.component";
-import { UsersComponent } from "./presentation/users/users.component";
+import { AdminHomeComponent } from "./presentation/admin-home/admin-home.component";
+import { AdminCreateUserComponent } from "./presentation/admin-create-user/admin-create-user.component";
+import { AdminUserDetailComponent } from "./presentation/admin-user-detail/admin-user-detail.component";
+import { AdminUsersComponent } from "./presentation/admin-users/admin-users.component";
+import { AdminGuard } from "./admin.guard";
 
 const routes: Routes = [
-    {
-      path: '',
-      component: AdminComponent,
-      canActivate: [AuthGuard],
-      children: [
-        { path: '', component: UsersComponent },
-        { path: 'register', component: UserCreateComponent },
-        { path: ':roleName', component: UsersComponent },
-        { path: 'user/:userId', component: UserDetailsComponent }
-      ]
-    }
-  ];
+  {
+    path: '',
+    component: AdminHomeComponent,
+    canActivate: [AdminGuard],
+    children: [
+      { path: 'home', component: AdminHomeComponent },
+      { path: 'register', component: AdminCreateUserComponent },
+      { path: 'users', component: AdminUsersComponent },
+      { path: ':roleName', component: AdminUsersComponent },
+      { path: 'user/:userId', component: AdminUserDetailComponent }
+    ]
+  }
+];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

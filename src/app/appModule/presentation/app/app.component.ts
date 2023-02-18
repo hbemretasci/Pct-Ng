@@ -8,7 +8,6 @@ import { AutoLoginUseCase } from '../../../auth/domain/use-case/auto-login.useca
   providers: [AutoLoginUseCase]
 })
 export class AppComponent implements OnInit {
-
   private autoLoginUseCase = inject(AutoLoginUseCase)
 
   ngOnInit(): void {

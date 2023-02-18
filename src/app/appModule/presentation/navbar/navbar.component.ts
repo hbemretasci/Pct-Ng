@@ -1,63 +1,72 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GetUserUseCase } from '../../../auth/domain/use-case/get-user.usecase';
-import { IsLoggedUserAdminUseCase } from '../../../auth/domain/use-case/is-logged-user-admin.usecase';
-import { IsLoggedUserUseCase } from '../../../auth/domain/use-case/is-logged-user.usecase';
+import { GetLoggedUserUseCase } from 'src/app/auth/domain/use-case/get-logged-user.usecase';
 import { LogoutUserUseCase } from '../../../auth/domain/use-case/logout-user.usecase';
 
 @Component({
   selector: 'navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  providers: [
+    GetLoggedUserUseCase,
+    LogoutUserUseCase
+  ]
 })
 export class NavbarComponent implements OnInit {
-  loading: boolean = true;
   isAuthUser: boolean = false;
   isAdminUser: boolean = false;
+  isAdminPlatform: boolean = false;
+  loading: boolean = true;
   error: any;
 
-  private isLoggedUserAdminUseCase = inject(IsLoggedUserAdminUseCase);
-  private isLoggedUserUseCase = inject(IsLoggedUserUseCase);
-  private logouUserUseCase = inject(LogoutUserUseCase);
-  //private getUserUseCase = inject(GetUserUseCase);
+  private getLoggedUserUseCase = inject(GetLoggedUserUseCase);
+  private logoutUserUseCase = inject(LogoutUserUseCase);
   private router = inject(Router);
 
   ngOnInit(): void {
-    this.isLoggedUserUseCase.execute().subscribe({
+    this.getLoggedUserUseCase.execute().subscribe({
       next: (v) => {
-        this.isAuthUser = v
-      }, 
+        if(v) {
+          this.isAuthUser = true;
+          if(v.role == "Admin") {
+            this.isAdminUser = true;
+            this.isAdminPlatform = true;
+          } else {
+            this.isAdminUser = false;
+            this.isAdminPlatform = false;
+          }
+        } else {
+          this.isAuthUser = false;
+        }
+        this.loading = false;
+      },
       error: (e) => {
-        this.error = e
+        this.error = e;
         this.loading = false;
       }
     });
 
-    this.isLoggedUserAdminUseCase.execute().subscribe({
-      next: (v) => {
-        this.isAdminUser = v
-        this.loading = false;  
-      }, 
-      error: (e) => {
-        this.error = e
-        this.loading = false;
+    if(this.isAuthUser) {
+      if(this.isAdminPlatform) {
+        this.router.navigate(['/admin/users']);
+      } else {
+        this.router.navigate(['/user']);
       }
-    });
-
-    // this._getUserUseCase.execute().subscribe(user => {
-    //   this.isAuthUser = !!user;
-    //   if((this.isAuthUser) && (user.role == "Admin")) {
-    //     this.isAdminUser = true
-    //   } else {
-    //     this.isAdminUser = false;
-    //   }
-    // });
-    
+    }
   }
 
   logout() {
-    this.logouUserUseCase.execute();
+    this.logoutUserUseCase.execute();
     this.router.navigate(['/auth/login']);
+  }
+
+  switchPlatform() {
+    this.isAdminPlatform = !this.isAdminPlatform;
+    if(this.isAdminPlatform) {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/user']);
+    }
   }
 
 }

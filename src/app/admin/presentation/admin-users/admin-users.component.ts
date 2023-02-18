@@ -5,25 +5,25 @@ import { UserModel } from '../../domain/user.model';
 import { GetUsersByCategoryUseCase } from '../../domain/use-case/get-users-bycategory.usecase';
 
 @Component({
-  selector: 'users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],
+  selector: 'admin-users',
+  templateUrl: './admin-users.component.html',
+  styleUrls: ['./admin-users.component.css'],
   providers: [GetUsersByCategoryUseCase]
 })
-export class UsersComponent implements OnInit {
+export class AdminUsersComponent implements OnInit {
   title: String = "User List";
   filterText: string = "";
   loading: boolean = true;
   users: UserModel[];
   error: any;
   
-  private _activatedRoute = inject(ActivatedRoute);
-  private _alertify = inject(AlertifyService);
-  private _getUsersByCategoryUseCase = inject(GetUsersByCategoryUseCase);
+  private activatedRoute = inject(ActivatedRoute);
+  private alertify = inject(AlertifyService);
+  private getUsersByCategoryUseCase = inject(GetUsersByCategoryUseCase);
 
   ngOnInit(): void {
-    this._activatedRoute.params.subscribe(params => {
-      this._getUsersByCategoryUseCase.execute(params["roleName"]).subscribe({
+    this.activatedRoute.params.subscribe(params => {
+      this.getUsersByCategoryUseCase.execute(params["roleName"]).subscribe({
         next: (v) => {
           this.users = v;
           this.loading = false;  
@@ -42,13 +42,13 @@ export class UsersComponent implements OnInit {
       $event.target.classList.remove('btn-primary');
       $event.target.classList.add('btn-danger');
 
-      this._alertify.success(user.fullName + ' added.');
+      this.alertify.success(user.fullName + ' added.');
     } else {
       $event.target.innerText = "Add";
       $event.target.classList.remove('btn-danger');
       $event.target.classList.add('btn-primary');
 
-      this._alertify.error(user.fullName + ' removed.');
+      this.alertify.error(user.fullName + ' removed.');
     }
   }
 

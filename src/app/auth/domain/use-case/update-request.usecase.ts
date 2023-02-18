@@ -3,11 +3,8 @@ import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { AuthRepository } from "../../data/auth.repository";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class UpdateRequestUseCase {
-
     private authRepository = inject(AuthRepository);
 
     execute(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

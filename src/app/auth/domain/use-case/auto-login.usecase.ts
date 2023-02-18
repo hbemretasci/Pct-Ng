@@ -4,7 +4,6 @@ import { LoggedUser } from "../logged-user";
 
 @Injectable()
 export class AutoLoginUseCase {
-
     private authRepository = inject(AuthRepository);
 
     execute() {
@@ -19,6 +18,8 @@ export class AutoLoginUseCase {
             new Date(parseInt(storaggedUser.tokenExpirationDate))
         );
         
-        if(loggedUser.token) this.authRepository.user.next(loggedUser);
+        if(loggedUser.token) {
+            this.authRepository.addLoggedUserToSubject(loggedUser);
+        }
     }
 }

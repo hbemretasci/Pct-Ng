@@ -19,7 +19,7 @@ export class AuthRepository {
 
     private httpClient = inject(HttpClient)
 
-    loginUser(params: { email: string; password: string; }): Observable<LoginModel> {
+    loginUser(params: { email: string; password: string }): Observable<LoginModel> {
         return this.httpClient.post<LoginResponseDto>(this.url + '/login', params)
         .pipe( 
             map(r => this.mapper.loginToModel(r))
@@ -61,11 +61,12 @@ export class AuthRepository {
                 } else {
                     return false;
                 }
-            }),
-            tap(isUser => {
-                return isUser;
             })
         );
+    }
+
+    getLoggedUser(): Observable<LoggedUser> {
+        return this.user;
     }
 
     addTokenToRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -86,8 +87,12 @@ export class AuthRepository {
         )
     }
 
-    getUser(): BehaviorSubject<LoggedUser> {
-        return this.user;
+    addLoggedUserToSubject(loggedUser: LoggedUser) {
+        this.user.next(loggedUser);
+    }
+
+    removeLoggedUserFromSubject() {
+        this.user.next(null);
     }
 
 }

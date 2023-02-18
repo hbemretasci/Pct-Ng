@@ -6,7 +6,6 @@ import { AuthRepository } from "../../data/auth.repository";
     providedIn: 'root'
 })
 export class IsLoggedUserAdminUseCase {
-
     private authRepository = inject(AuthRepository);
 
     execute(): Observable<boolean> {

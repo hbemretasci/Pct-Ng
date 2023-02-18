@@ -6,6 +6,7 @@ import { NavbarComponent } from './presentation/navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from '../core/core.module';
+import { UpdateRequestUseCase } from '../auth/domain/use-case/update-request.usecase';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,9 @@ import { CoreModule } from '../core/core.module';
     HttpClientModule,
     SharedModule,
     CoreModule
+  ],
+  providers: [
+    UpdateRequestUseCase
   ],
   bootstrap: [AppComponent]
 })

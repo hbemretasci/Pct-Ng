@@ -1,31 +1,34 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand">Problem Çözme Teknikleri</a>
 
-        <ul class="navbar-nav me-auto">
+      <span class="navbar-brand mb-0 h1">
+        <i class="bi bi-bricks"></i>
+        Problem Solving Techs
+      </span>
 
-            <li *ngIf="isAuthUser && isAdminUser" class="nav-item">
-                <a routerLink="admin" class="nav-link">Users</a>
-            </li>
+      <!-- <ul class="navbar-nav me-auto">
+          <li *ngIf="isAdminUser && isAdminPlatform" class="nav-item">
+              <a (click)="switchPlatform()" class="nav-link">User Operations</a>
+          </li>
+          <li *ngIf="isAdminUser && !isAdminPlatform" class="nav-item">
+              <a (click)="switchPlatform()" class="nav-link">Admin Operations</a>
+          </li>
+      </ul> -->
 
-            <li *ngIf="isAuthUser && isAdminUser" class="nav-item">
-                <a routerLink="/admin/register" class="nav-link">Create User</a>
-            </li>
-            
-        </ul>
-
-        <ul class="navbar-nav ms-auto">
-
-            <li *ngIf="!isAuthUser" class="nav-item">
-                <a routerLink="/auth/login" class="nav-link">Login</a>
-            </li>
-
-            <li *ngIf="isAuthUser" class="nav-item">
-                <a routerLink="" (click)="logout()" class="nav-link">Logout</a>
-
-            </li>
-
-        </ul>
-        
+      <ul class="navbar-nav ms-auto">
+        <li *ngIf="isAuthUser" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-fill"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item disabled" href="#">Edit Profile</a></li>
+            <li><a class="dropdown-item disabled" href="#">Change Password</a></li>
+            <li><a class="dropdown-item disabled" href="#">Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    
     </div>
 </nav>

@@ -4,9 +4,7 @@ import { UserModel } from "../user.model";
 import { AdminRepository } from "../../data/admin.repository";
 import { inject, Injectable } from "@angular/core";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class UserRegisterUseCase implements UseCase<{
     name: string,
     email: string,
@@ -18,7 +16,6 @@ export class UserRegisterUseCase implements UseCase<{
     department: string,
     disabled: boolean
 }, UserModel> {
-    
     private adminRepository = inject(AdminRepository)
 
     execute(
@@ -32,7 +29,7 @@ export class UserRegisterUseCase implements UseCase<{
             title: string,
             department: string,
             disabled: boolean
-        },
+        }
     ): Observable<UserModel> {
         return this.adminRepository.register(params);
     }

@@ -5,22 +5,19 @@ import { LoginModel } from "../login.model";
 import { AuthRepository } from "../../data/auth.repository";
 import { inject, Injectable } from "@angular/core";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class LoginUserUseCase implements UseCase<{ email: string, password: string }, LoginModel> {
-
     private authRepository = inject(AuthRepository);
 
-    execute(
-        params: { email: string, password: string },
-    ): Observable<LoginModel> {
+    execute(params: { email: string, password: string }): Observable<LoginModel> {
         return this.authRepository.loginUser(params)
         .pipe(
             tap( r => {
                 const validityTime: number = (new Date().getTime()) + parseInt(r.expiresIn);
                 const loggedUser = new LoggedUser(r.name, r.email, r.role, r.token, new Date(validityTime));
-                this.authRepository.user.next(loggedUser);
+
+                this.authRepository.addLoggedUserToSubject(loggedUser);
+
                 this.authRepository.setLocalStorage("user", {
                     name: r.name,
                     email: r.email,

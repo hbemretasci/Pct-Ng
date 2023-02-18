@@ -5,12 +5,12 @@ import { UserModel } from '../../domain/user.model';
 import { UserRegisterUseCase } from '../../domain/use-case/user-register.usecase';
 
 @Component({
-  selector: 'user-create',
-  templateUrl: './user-create.component.html',
-  styleUrls: ['./user-create.component.css'],
+  selector: 'admin-create-user',
+  templateUrl: './admin-create-user.component.html',
+  styleUrls: ['./admin-create-user.component.css'],
   providers: [UserRegisterUseCase]
 })
-export class UserCreateComponent {
+export class AdminCreateUserComponent {
   title: String = "Create User";
   loading: boolean = false;
   user: UserModel;
@@ -46,8 +46,8 @@ export class UserCreateComponent {
     return this.createUserForm.get('organizationName');
   }
 
-  private _alertify = inject(AlertifyService);
-  private _userRegisterUseCase = inject(UserRegisterUseCase);
+  private alertify = inject(AlertifyService);
+  private userRegisterUseCase = inject(UserRegisterUseCase);
 
   registerUser() {
     const createUser = {
@@ -63,11 +63,11 @@ export class UserCreateComponent {
     }
 
     this.loading = true;
-    this._userRegisterUseCase.execute(createUser).subscribe({
+    this.userRegisterUseCase.execute(createUser).subscribe({
       next: (v) => {
         this.user = v;
         this.loading = false;  
-        this._alertify.success(this.user.fullName + ' created.');
+        this.alertify.success(this.user.fullName + ' created.');
       },
       error: (e) => {
         this.error = e;

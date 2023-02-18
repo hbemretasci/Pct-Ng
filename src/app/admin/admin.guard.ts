@@ -7,11 +7,10 @@ import { IsLoggedUserAdminUseCase } from "../auth/domain/use-case/is-logged-user
     providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
-
-    private _isLoggedUserAdminUseCase = inject(IsLoggedUserAdminUseCase);
+    private isLoggedUserAdminUseCase = inject(IsLoggedUserAdminUseCase);
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        return this._isLoggedUserAdminUseCase.execute();
+        return this.isLoggedUserAdminUseCase.execute();
     }
 
 }

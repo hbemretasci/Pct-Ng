@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'role',
-  templateUrl: './role.component.html',
-  styleUrls: ['./role.component.css']
+  selector: 'admin-role',
+  templateUrl: './admin-role.component.html',
+  styleUrls: ['./admin-role.component.css']
 })
-export class RoleComponent {
+export class AdminRoleComponent {
   roles: string[] = ["Admin", "Supervisor", "User"];
   selectedRole: string;
   displayAllRoles: boolean = true;

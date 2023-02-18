@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { LoginUserUseCase } from '../../domain/use-case/login-user.usecase';
 
 @Component({
-  selector: 'login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'auth-login',
+  templateUrl: './auth-login.component.html',
+  styleUrls: ['./auth-login.component.css'],
+  providers: [LoginUserUseCase]
 })
-export class LoginComponent {
+export class AuthLoginComponent {
   title: String = "Login";
   loading: boolean = false;
   error: any;
@@ -26,18 +27,22 @@ export class LoginComponent {
     return this.userLoginForm.get('password');
   }
 
-  private _loginUserUseCase = inject(LoginUserUseCase);
-  private _router = inject(Router);
+  private loginUserUseCase = inject(LoginUserUseCase);
+  private router = inject(Router);
 
   login() {
     const email: string = this.email.value;
     const password: string = this.password.value;
 
     this.loading = true;
-    this._loginUserUseCase.execute({ email, password }).subscribe({
+    this.loginUserUseCase.execute({ email, password }).subscribe({
       next: (v) => {
         this.loading = false;  
-        this._router.navigate(['/admin/']);
+        if(v.role == "Admin") {
+          this.router.navigate(['/admin/users']);
+        } else {
+          this.router.navigate(['/user']);
+        }
       },
       error: (e) => {
         this.error = e;

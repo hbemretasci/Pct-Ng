@@ -25,7 +25,7 @@ export class AdminRepository {
         organizationName: string;
         title: string;
         department: string;
-        disabled: boolean;
+        disabled: boolean
     }): Observable<UserModel> {
         return this.httpClient.post<UserResponseDto>(this.url + '/register', params )
         .pipe(
