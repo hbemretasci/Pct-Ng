@@ -10,5 +10,4 @@ import { ErrorInterceptor } from "./error.interceptor";
       ]
 })
 export class CoreModule {
-
 }

@@ -10,6 +10,7 @@ import { AdminCreateUserComponent } from "./presentation/admin-create-user/admin
 import { AdminRoleComponent } from "./presentation/admin-role/admin-role.component";
 import { AdminUserDetailComponent } from "./presentation/admin-user-detail/admin-user-detail.component";
 import { AdminUsersComponent } from "./presentation/admin-users/admin-users.component";
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { AdminUsersComponent } from "./presentation/admin-users/admin-users.comp
         ReactiveFormsModule,
         FormsModule,
         AdminRoutingModule,
-        SharedModule
+        MatSidenavModule,
+        SharedModule,
     ],
     exports: [
     ]

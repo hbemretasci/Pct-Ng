@@ -5,8 +5,7 @@ import { UpdateRequestUseCase } from "../auth/domain/use-case/update-request.use
 
 @Injectable()
 export class AuthIntercepter implements HttpInterceptor {
-
-    constructor (private updateRequestUseCase:UpdateRequestUseCase) { }
+    constructor(private updateRequestUseCase: UpdateRequestUseCase) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return this.updateRequestUseCase.execute(req, next);

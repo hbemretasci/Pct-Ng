@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AlertDialogComponent } from 'src/app/shared/alert-dialog/alert-dialog.component';
 import { LoginUserUseCase } from '../../domain/use-case/login-user.usecase';
 
 @Component({
@@ -29,6 +31,7 @@ export class AuthLoginComponent {
 
   private loginUserUseCase = inject(LoginUserUseCase);
   private router = inject(Router);
+  private dialog = inject(MatDialog)
 
   login() {
     const email: string = this.email.value;
@@ -39,16 +42,35 @@ export class AuthLoginComponent {
       next: (v) => {
         this.loading = false;  
         if(v.role == "Admin") {
-          this.router.navigate(['/admin/users']);
+          this.navigateAdminSection();
         } else {
-          this.router.navigate(['/user']);
+          this.navigateUserSection();
         }
       },
       error: (e) => {
         this.error = e;
         this.loading = false;
+        this.showError('Error', this.error.message);
       } 
     });
+  }
+
+  showError(title: string, content: string): void {
+    this.dialog.open(AlertDialogComponent, {
+      data: {
+         title: title,
+         content: content
+        },
+      width:'250px'
+    });
+  }
+
+  navigateUserSection() {
+    this.router.navigate(['/user']);
+  }
+
+  navigateAdminSection() {
+    this.router.navigate(['/admin']);
   }
 
   closeErrorDialog() {

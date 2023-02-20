@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AlertifyService } from '../../../shared/alertify.service';
 import { UserModel } from '../../domain/user.model';
 import { UserRegisterUseCase } from '../../domain/use-case/user-register.usecase';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'admin-create-user',
@@ -46,8 +46,8 @@ export class AdminCreateUserComponent {
     return this.createUserForm.get('organizationName');
   }
 
-  private alertify = inject(AlertifyService);
   private userRegisterUseCase = inject(UserRegisterUseCase);
+  private snackBar = inject(MatSnackBar);
 
   registerUser() {
     const createUser = {
@@ -67,7 +67,9 @@ export class AdminCreateUserComponent {
       next: (v) => {
         this.user = v;
         this.loading = false;  
-        this.alertify.success(this.user.fullName + ' created.');
+        this.snackBar.open(this.user.fullName + ' user created.', '', {
+          duration: 3000
+        });
       },
       error: (e) => {
         this.error = e;
@@ -76,7 +78,7 @@ export class AdminCreateUserComponent {
     });
   }
 
-  clearForm() {
+  clearForm(): void {
     this.createUserForm.patchValue({
       name: '',
       email: '',
@@ -89,7 +91,7 @@ export class AdminCreateUserComponent {
     });
   }
 
-  closeErrorDialog() {
+  closeErrorDialog(): void {
     this.error = null;
   }
 

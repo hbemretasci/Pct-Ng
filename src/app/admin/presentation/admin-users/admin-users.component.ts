@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertifyService } from '../../../shared/alertify.service';
 import { UserModel } from '../../domain/user.model';
 import { GetUsersByCategoryUseCase } from '../../domain/use-case/get-users-bycategory.usecase';
 
@@ -18,7 +17,6 @@ export class AdminUsersComponent implements OnInit {
   error: any;
   
   private activatedRoute = inject(ActivatedRoute);
-  private alertify = inject(AlertifyService);
   private getUsersByCategoryUseCase = inject(GetUsersByCategoryUseCase);
 
   ngOnInit(): void {
@@ -42,13 +40,13 @@ export class AdminUsersComponent implements OnInit {
       $event.target.classList.remove('btn-primary');
       $event.target.classList.add('btn-danger');
 
-      this.alertify.success(user.fullName + ' added.');
+      // this.alertify.success(user.fullName + ' added.');
     } else {
       $event.target.innerText = "Add";
       $event.target.classList.remove('btn-danger');
       $event.target.classList.add('btn-primary');
 
-      this.alertify.error(user.fullName + ' removed.');
+      // this.alertify.error(user.fullName + ' removed.');
     }
   }
 

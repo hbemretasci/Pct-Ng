@@ -2,7 +2,6 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { catchError, Observable, throwError } from "rxjs";
 
 export class ErrorInterceptor implements HttpInterceptor {
-
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req)
         .pipe(catchError((err: HttpErrorResponse) => {
@@ -36,5 +35,4 @@ export class ErrorInterceptor implements HttpInterceptor {
             return throwError(() => new Error(errorMessage));
         }))
     }
-    
 }

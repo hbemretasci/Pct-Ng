@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AutoLoginUseCase } from '../../../auth/domain/use-case/auto-login.usecase';
+import { AutoLoginUseCase } from 'src/app/auth/domain/use-case/auto-login.usecase';
 
 @Component({
   selector: 'app',

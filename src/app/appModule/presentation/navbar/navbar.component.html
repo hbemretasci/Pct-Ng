@@ -1,34 +1,29 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-primary">
-    <div class="container">
+<mat-toolbar color="primary">
+  <span>Problem Solving Techs</span>
+  <span class="spacer"></span>
+  <div *ngIf="isAuthUser">
+    {{ getUserInformation() }}
+    <button  mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>person</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
 
-      <span class="navbar-brand mb-0 h1">
-        <i class="bi bi-bricks"></i>
-        Problem Solving Techs
-      </span>
-
-      <!-- <ul class="navbar-nav me-auto">
-          <li *ngIf="isAdminUser && isAdminPlatform" class="nav-item">
-              <a (click)="switchPlatform()" class="nav-link">User Operations</a>
-          </li>
-          <li *ngIf="isAdminUser && !isAdminPlatform" class="nav-item">
-              <a (click)="switchPlatform()" class="nav-link">Admin Operations</a>
-          </li>
-      </ul> -->
-
-      <ul class="navbar-nav ms-auto">
-        <li *ngIf="isAuthUser" class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-fill"></i>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item disabled" href="#">Edit Profile</a></li>
-            <li><a class="dropdown-item disabled" href="#">Change Password</a></li>
-            <li><a class="dropdown-item disabled" href="#">Settings</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
-          </ul>
-        </li>
-      </ul>
-    
-    </div>
-</nav>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="navigateProfile()">
+    <span>Edit Profile</span>
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button mat-menu-item disabled>
+    <span>Change Password</span>
+    <mat-icon>key</mat-icon>
+  </button>
+  <button mat-menu-item disabled>
+    <span>Settings</span>
+    <mat-icon>settings</mat-icon>
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <span>Logout</span>
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-menu>
