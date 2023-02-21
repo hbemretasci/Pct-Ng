@@ -1,30 +1,57 @@
-<div class="col-5 mx-auto">
-    <div *ngIf="loading else notLoadingTemplate">
-        <loading></loading>
+<div *ngIf="loading">
+    <loading></loading>
+</div>
+
+<h2>{{ title }}</h2>
+
+<mat-form-field appearance="fill">
+    <mat-label>Enter your email</mat-label>
+    <input matInput placeholder="user@pst.com" formControlName="email" required>
+    <mat-error *ngIf="email.invalid">{{ getEmailErrorMessage() }}</mat-error>
+</mat-form-field>
+
+<mat-label>Enter your email</mat-label>
+
+<div [formGroup]="userLoginForm">
+
+    <mat-label>Enter your email</mat-label>
+
+    <div class="example-container">
+
+        <mat-label>Enter your email</mat-label>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="user@pst.com" formControlName="email" required>
+            <mat-error *ngIf="email.invalid">{{ getEmailErrorMessage() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <button mat-button color="primary" [disabled]="userLoginForm.invalid" (click)="login()">Login</button>
     </div>
+</div>
 
-    <ng-template #notLoadingTemplate> 
-        <!-- <alert *ngIf="error" [message]="error.message" (close)="closeErrorDialog()"></alert> -->
-    </ng-template>
 
-    <h2>{{ title }}</h2>
-    
-    <form [formGroup]="userLoginForm" (ngSubmit)="login()">
-        <div class="mb-3">
+
+    <!-- <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" name="email" class="form-control" formControlName="email">
             <small *ngIf="email.invalid && email.touched" class="form-text text-muted">Please provide a email.</small>
-        </div>
-    
-        <div class="mb-3">
+        </div> -->
+
+    <!-- <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input type="password" name="password" class="form-control" formControlName="password">
             <div *ngIf="password.invalid && password.touched">
                 <small *ngIf="password.errors['required']" class="form-text text-muted">Please provide a password.</small>
                 <small *ngIf="password.errors['minlength']" class="form-text text-muted">Please provide a password with min length 6.</small>
             </div>
-        </div>
+        </div> -->
     
-        <button [disabled]="userLoginForm.invalid" type="submit" class="btn btn-primary">Login</button>
-    </form>
-</div>

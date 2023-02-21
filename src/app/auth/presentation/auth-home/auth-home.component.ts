@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./auth-home.component.css']
 })
 export class AuthHomeComponent {
-
 }

@@ -16,10 +16,19 @@ export class AuthLoginComponent {
   loading: boolean = false;
   error: any;
 
-  userLoginForm = new FormGroup({
-    email: new FormControl("", [Validators.required, Validators.email]),
-    password: new FormControl("", [Validators.required, Validators.minLength(6)])
+  hide = true;
+
+  userLoginForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
+
+  getEmailErrorMessage(): string {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value.';
+    }
+    return this.email.hasError('email') ? 'Please provide a email.' : '';
+  }
 
   get email() {
     return this.userLoginForm.get('email');

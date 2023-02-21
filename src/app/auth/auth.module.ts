@@ -20,5 +20,4 @@ import { AuthHomeComponent } from './presentation/auth-home/auth-home.component'
     ]
 })
 export class AuthModule {
-
 }

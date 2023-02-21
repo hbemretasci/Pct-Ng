@@ -7,8 +7,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
     declarations: [
@@ -23,7 +26,10 @@ import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
         MatIconModule,
         MatProgressSpinnerModule,
         MatButtonModule,
-        MatListModule
+        MatListModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatGridListModule
     ],
     exports: [
         LoadingComponent,
@@ -34,7 +40,10 @@ import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
         MatSnackBarModule,
         MatIconModule,
         MatButtonModule,
-        MatListModule
+        MatListModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatGridListModule
     ]
 })
 export class SharedModule {
